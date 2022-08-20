@@ -9,21 +9,51 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: rgb(248, 249, 250);
-    }
-  </style>
-</head>
 
+</head>
 <body>
-  <main class="mt-5">
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+  <section class="vh-100" style="background-color: #c3d6f8;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+  
+              <img class="bd-placeholder-img card-img-top" src="img/login.png">
+              <h3 class="mb-5">Inicio de sesión</h3>
+  
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2">Email</label>
+                <input type="email" id="email" class="form-control form-control-lg" placeholder="Ingresa tu email" name="mail"/>
+                <br>
+                <label class="form-label" for="typePasswordX-2">Contraseña</label>
+                <input type="password" id="clave1" class="form-control form-control-lg" placeholder="Ingresa tu contraseña" name="clave" title="Debe tener más de 6 carácteres." />
+              </div>
+  
+              <!-- Checkbox -->
+              <div class="form-check d-flex justify-content-start mb-4">
+                <input class="form-check-input" type="checkbox" value="" id="clave2" />
+                <label class="form-check-label" for="form1Example3"> Recordar contraseña </label>
+              </div>
+  
+              <button class="btn btn-primary btn-lg btn-block" type="submit" id="ingresar">Ingresar</button>
+  
+              <div class="alert alert-success alert dismissible fade" role="alert" id="exitoso">
+                <p>Has iniciado sesión de forma exitosa</p>
+              </div>
+
+              <div class="alert alert-danger alert-dismissible fade" role="alert" id="incompleto">
+                <p>Los datos no cumplen con los requisitos solicitados</p>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="ocultar()"></button>
+              </div>
+             
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </main>
+  </section>
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
