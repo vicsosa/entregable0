@@ -146,4 +146,10 @@ document.addEventListener("DOMContentLoaded", function(e){
             });
         }
     });
+    let usuario= localStorage.getItem('dato');
+        document.getElementById('usuario').innerHTML+=" " + usuario;
+    
+        if (usuario==undefined){
+                location.href="index.html"
+            }
 });

@@ -1,7 +1,12 @@
+
 document.addEventListener("DOMContentLoaded", function(){
 
     let usuario= localStorage.getItem('dato');
     document.getElementById('usuario').innerHTML+=" " + usuario;
+
+    if (usuario==undefined){
+            location.href="index.html"
+        }
 
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
