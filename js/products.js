@@ -37,7 +37,7 @@ function filtro(){
     let minimo = parseInt(document.getElementById('Min').value);
     let maximo = parseInt(document.getElementById('Max').value);
     //al usar el 'or' permito que se filtre sólo ingresando como dato un precio minimo o un precio max., no necesariamente ambos. 
-    listaFiltros = products.filter(articulo => articulo.cost >= minimo || articulo.cost <= maximo);
+    listaFiltros = products.filter(articulo => articulo.cost >= minimo && articulo.cost <= maximo);
     listaFiltros.sort((a,b)=>a.cost-b.cost);
     showProducts(listaFiltros) 
 }
