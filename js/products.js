@@ -1,14 +1,19 @@
 const direccion = "https://japceibal.github.io/emercado-api/cats_products/";
 let categorías = localStorage.getItem('catID');
-let Buscar= undefined;
 let products = [];
 
 function showProducts(articulos){
     let htmlAñadir = "";
 
-    for(let articulo of articulos){
-        if(Buscar==undefined || articulo.name.includes(Buscar) || articulo.description.includes(Buscar)){
+    let texto = document.getElementById('buscar').value.toLowerCase();
 
+    for(let articulo of articulos){
+
+        let palabra = articulo.name.toLowerCase() 
+        let descripción = articulo.description.toLowerCase();
+        if(palabra.indexOf(texto)!== -1 || descripción.indexOf(texto)!== -1){ 
+/* indexOf tira -1 cuando no existen elementos iguales. Y tira 1 cuando sí existen. Al decir '!== -1' estamos diciendo
+que si la palabra escrita en el buscador es diferente de inexistente, es decir existe, que muestre los productos coincidentes*/
         htmlAñadir += 
         `    
         <div class="list-group-item list-group-item-action">
@@ -26,11 +31,10 @@ function showProducts(articulos){
                     </div>
                 </div>
             </div>
-        </div>
-        `
-        document.getElementById("listado").innerHTML = htmlAñadir; 
-    }}}
-
+        </div>`
+    }
+    document.getElementById("listado").innerHTML = htmlAñadir; 
+}}
 
 function filtro(){
     //el parseInt me convierte a entero un numero que es tomado como string
@@ -92,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function(_e){
             limpiar();
         })
         document.getElementById('buscar').addEventListener('input',()=>{
-            Buscar = document.getElementById('buscar').value;
             showProducts(products);
         })
         let usuario= localStorage.getItem('dato');
