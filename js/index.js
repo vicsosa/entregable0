@@ -18,7 +18,7 @@ function login(){
         ' <a href=""> Recuperala aquí.</a>'
       })
    }else{
-    localStorage.setItem('dato', usuario);
+    localStorage.setItem('usuario', usuario);
     Swal.fire({
         position: 'top',
         icon: 'success',

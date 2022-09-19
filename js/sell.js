@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function(e){
             });
         }
     });
-    let usuario= localStorage.getItem('dato');
+    let usuario= localStorage.getItem('usuario');
         document.getElementById('usuario').innerHTML+=" " + usuario;
     
         if (usuario==undefined){

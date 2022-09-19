@@ -8,19 +8,19 @@ function showProducts(articulos){
     let texto = document.getElementById('buscar').value.toLowerCase();
 
     for(let articulo of articulos){
-
+//el método 'toLowerCase' convierte todo a minúscula. 
         let palabra = articulo.name.toLowerCase() 
         let descripción = articulo.description.toLowerCase();
         if(palabra.indexOf(texto)!== -1 || descripción.indexOf(texto)!== -1){ 
 /* indexOf tira -1 cuando no existen elementos iguales. Y tira 1 cuando sí existen. Al decir '!== -1' estamos diciendo
 que si la palabra escrita en el buscador es diferente de inexistente, es decir existe, que muestre los productos coincidentes*/
         htmlAñadir += 
-        `    
-        <div class="list-group-item list-group-item-action">
+        `   
+        <div onclick="setID(${articulo.id})" class="list-group-item list-group-item-action"><a href="product-info.html">
             <div class="row">
                 <div class="col-3">
                     <img src="${articulo.image}" + " alt="product image" class="img-thumbnail">
-                </div>
+                    </div>
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
                         <div class="mb-1">
@@ -31,6 +31,7 @@ que si la palabra escrita en el buscador es diferente de inexistente, es decir e
                     </div>
                 </div>
             </div>
+            </a>
         </div>`
     }
     document.getElementById("listado").innerHTML = htmlAñadir; 
@@ -77,6 +78,10 @@ function ordenRel(){
     showProducts(listaRelevancia);
     }}
 
+    function setID(id) {
+        localStorage.setItem("id", id);
+    }
+
 document.addEventListener("DOMContentLoaded", function(_e){
     getJSONData(direccion + categorías + '.json').then(function(resultObj){
         if (resultObj.status === "ok")
@@ -87,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function(_e){
             document.getElementById('titulo').innerHTML+= `<h4>Productos</h4>
             <h5>Verás aquí todos los productos de la categoría ` + resultObj.data.catName + ` </h5>` 
         }
-    });
+    })
         document.getElementById('filtrar').addEventListener('click',()=>{
             filtro();
             console.log(listaFiltros);
@@ -98,13 +103,10 @@ document.addEventListener("DOMContentLoaded", function(_e){
         document.getElementById('buscar').addEventListener('input',()=>{
             showProducts(products);
         })
-        let usuario= localStorage.getItem('dato');
+        let usuario= localStorage.getItem('usuario');
         document.getElementById('usuario').innerHTML+=" " + usuario;
     
-        if (usuario==undefined){
-                location.href="index.html"
+            if (usuario==undefined){
+                   location.href="index.html"
             }
-    })
-
-
-
+});
