@@ -50,9 +50,9 @@ function mostrar(array){
                         </button>
                     </div>         
                 </div>
-            </div>`
-    }
-    document.getElementById("product-info").innerHTML = htmlAgregar; 
+            </div>` 
+ }    
+document.getElementById("product-info").innerHTML = htmlAgregar;
 }
 
 function Showcomentarios(coments){
@@ -109,26 +109,32 @@ if(opinion!="" && stars!=""){
 
 let agregarOpinion= [];
 
-/*function comentando(coments){
+function mostrarRelacionados(arrayProdsRel){
+    let htmlProdRel="";
+    for (let prod of arrayProdsRel){
+    htmlProdRel+=
+    `<div class="col-md-4" onclick="setIDRel(${prod.id})">
+    <a href="product-info.html">
+          <div class="card mb-4 shadow-sm custom-card cursor-active">
+              <img class="bd-placeholder-img card-img-top" src="${prod.image}" + " alt="product image">
+              <h3 class="m-3">${prod.name}</h3>
+              <div class="card-body">
+              </div>
+            </div>
+          </div>`
+}
+document.getElementById("prodsRel").innerHTML = htmlProdRel;
+}
 
-    //let filas = ""
-    let usuario = localStorage.getItem('usuario');
-    let score = document.getElementById('calificar').value;
-    let opinion = document.getElementById('opinión').value;
-    let fecha=new Date();
-    coments.push({"product":id,"score":score,"description":opinion,"user":usuario,"dateTime":fecha})
+function cerrarSesion(){
+    localStorage.removeItem('usuario');
+}
 
-    for (let opinion of agregarOpinion) {
-        filas += `<li class="list-group-item d-flex justify-content-between lh-condensed">
-        <div>
-          <h6 class="my-0">${usuario} - Fecha ${fecha.getUTCDate()}-${fecha.getMonth()}-${fecha.getFullYear()} - ${fecha.getUTCHours()}:${fecha.getUTCMinutes()} - ${calificar(score)}</h6>
-          <small class="text-muted">${opinion}</small>
-        </div>
-      </li>`
-    }
-    document.getElementById("coments").innerHTML = filas
-}*/
+function setIDRel(id) {
+    localStorage.setItem("id", id);
+}
 
+//ADDEVENTLISTENER Y JSON
 document.addEventListener("DOMContentLoaded", function(_e){
 getJSONData(prodUrl + id + '.json').then(function(resultObj){
     if (resultObj.status === "ok")
@@ -136,6 +142,8 @@ getJSONData(prodUrl + id + '.json').then(function(resultObj){
         prodUnit = resultObj.data;
         mostrar(prodUnit);
         console.log(prodUnit);
+        prodRel= resultObj.data.relatedProducts;
+        mostrarRelacionados(prodRel);
     }
 });
 getJSONData(comentarios + id + '.json').then(function(resultObj){
@@ -153,4 +161,10 @@ document.getElementById('enviar').addEventListener('click',()=>{
     coments = JSON.parse(localStorage.getItem("ComentarObj"));
     agregarNewComment();
 })
+let usuario= localStorage.getItem('usuario');
+        document.getElementById('usuario').innerHTML+=" " + usuario;
+    
+            if (usuario==undefined){
+                   location.href="index.html"
+            }
 });

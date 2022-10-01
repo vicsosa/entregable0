@@ -36,7 +36,18 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="my-profile.html" id="usuario"></a>
+            <!--Menú desplegable -->
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="usuario" data-bs-toggle="dropdown" aria-expanded="false">
+
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+                  <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+                  <li><a onclick="cerrarSesion()" id="sesión" class="dropdown-item" href="index.html">Cerrar sesión</a></li>
+                  <!-- en cerrar sesión debe eliminar el usuario del localStorage -->
+                </ul>
+              </div>
           </li>
         </ul>
       </div>
@@ -52,12 +63,11 @@
       <!--Comentarios del json -->
       </ul>
       <hr class="mb-4">
-      
-      <!-- Comentar -->
+      <!-- Comentar con función agregarNewComment()-->
       <div class="row">
         <div class="col-md-12 mb-3">
           <h4 class="mb-3">Comentar</h4>
-          <div class="d-block my-3">
+        <div class="d-block my-3">
           <label class="col-md-12 mb-3">Cuéntanos tu experiencia:</label>
           <textarea style="max-width: 550px;min-height: 120px;" name="productDescription" class="form-control" id="opinión"></textarea><br>
           Calificar vendedor: <select id="calificar">
@@ -71,9 +81,13 @@
           Puntuación: <span id="estrellas" onclick="calificar()"></span><br><br>
           <button class="btn btn-primary" type="submit" id="enviar">Enviar</button><br><br>
           <p id="requerido" style="color: red;"></p>
-        </div>
-      </div>
-    </div>
+          <hr class="mb-4">
+          <!-- Se muestran los productos relacionados con la función mostrarRelacionados()-->
+          <h4 class="mb-3">Productos relacionados</h4>
+          <div id='prodsRel' class="btn-group btn-group-toggle mb-5"></div>
+         </div>
+       </div>
+     </div>
     </main>
   <footer class="text-muted">
     <div class="container">

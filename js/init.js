@@ -39,3 +39,7 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+function cerrarSesion(){
+  localStorage.removeItem('usuario');
+}

@@ -82,6 +82,10 @@ function ordenRel(){
         localStorage.setItem("id", id);
     }
 
+    function cerrarSesion(){
+        localStorage.removeItem('usuario');
+    }
+
 document.addEventListener("DOMContentLoaded", function(_e){
     getJSONData(direccion + categorías + '.json').then(function(resultObj){
         if (resultObj.status === "ok")
