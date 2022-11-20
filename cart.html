@@ -9,6 +9,8 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="sweetalert2.min.css">
 </head>
 
 <body>
@@ -21,7 +23,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100 justify-content-between">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
+            <a class="nav-link" href="portada.html">Inicio</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="categories.html">Categorías</a>
@@ -32,7 +34,6 @@
           <li class="nav-item">
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="usuario" data-bs-toggle="dropdown" aria-expanded="false">
-
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
@@ -45,9 +46,261 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+    <div>
+      <div class="row d-flex justify-content-center my-4">
+        <div class="text-center p-4">
+        <section class="h-100 gradient-custom">
+              <div class="row d-flex justify-content-center my-4">
+                <div class="col-md-8">
+                  <div style="max-width: 1500px;" class="card mb-4">
+                    <div class="card-header py-3">
+                      <h4>Carrito de compras</h4>
+                    </div>
+                    <div class="card-body">                  
+                      <div id=carrito class="row mb-4 d-flex justify-content-between align-items-center"></div>
+                      <!-- CARRITO DE COMPRAS INSERTADO POR JAVASCRIPT -->
+                    </div>
+                  </div>            
+                </div>
+                <!-- TOTAL - FINALIZAR COMPRA -->
+                <div class="col-md-4">
+                  <div class="card mb-4">
+                    <div class="card-header py-3">
+                      <!-- TÍTULO -->
+                      <h4 class="mb-0">Costos</h4>
+                    </div>
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                      <!-- SUBTOTAL DE TODOS LOS PRODUCTOS -->
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                          <strong>Subtotal</strong>
+                          <span id="subtotalfinal"><!--precio subtotal--></span>  
+                        </li>
+                      <!-- COSTO DE ENVIO DE TODOS LOS PRODUCTOS -->
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                           <strong>Costo de envío</strong>
+                          <span id="envio"><!--envío--></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                          <!-- TOTAL (SUBTOTAL + ENVIO) -->
+                          <div>
+                            <strong>Total ($)</strong>
+                          </div>
+                          <span id="total"><!--Total final--></span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+            <div class="container">
+              <form class="row g-3 needs-validation" action="#" method="get" class="row mt-4" novalidate>
+              <hr class="mb-4">
+               <!-- TIPO DE ENVIO -->
+              <div class="row d-flex justify-content-center my-4">
+                <h4>Tipo de envío</h4>
+                  <div class="d-block my-3">
+                    <div class="custom-control custom-radio">
+                      <input id="goldradio" name="publicationType" type="radio" class="custom-control-input" onclick="validaciones()" onchange="calcularTotales()" checked
+                        required>
+                      <label class="custom-control-label" for="goldradio">Premium 2 a 5 días (15%)</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input id="premiumradio" name="publicationType" type="radio" class="custom-control-input" onclick="validaciones()" onchange="calcularTotales()" required>
+                      <label class="custom-control-label" for="premiumradio">Express 5 a 8 días (7%)</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input id="standardradio" name="publicationType" type="radio" class="custom-control-input" onclick="validaciones()" onchange="calcularTotales()" required>
+                      <label class="custom-control-label" for="standardradio">Estándar 12 a 15 días(5%)</label>
+                    </div><br> 
+                    <div id="selecEnvio" class="invalid-feedback" style="display:none;">
+                      Selecciona tipo de envío
+                    </div>
+                     
+                     <!-- DIRECCION DE ENVIO -->
+          <div class="row d-flex justify-content-center my-4">
+            <h4>Dirección de envío</h4>  
+              <div class="d-block my-3">
+                <div class="custom-control custom-radio">   
+                  <div class="row">
+                    <div class="col-md-3 mb-3">
+                      <label for="validationCustom01" class="form-label">Calle</label>
+                      <input type="text" name="addressInput" class="form-control" id="addressInput" required=""
+                        min="0">
+                      <div class="invalid-feedback">
+                        Ingresa una calle
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label  for="validationCustom01" class="form-label">Número</label>
+                      <input type="text" name="numberInput" class="form-control" id="numberInput" required=""
+                        min="0">
+                      <div class="invalid-feedback">
+                        Ingresa un número
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="validationCustom01" class="form-label">Esquina</label>
+                      <input type="text" name="addressrInput" class="form-control" id="esquina" required=""
+                        min="0">
+                      <div class="invalid-feedback">
+                        Ingresa una esquina
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                        <div class="row">
+                          <div class="col-md-12 mb-3">
+                            <label for="productDescription">Añadir aclaración</label>
+                            <textarea style="max-width: 500px;min-height: 120px;" name="productDescription" class="form-control" placeholder="Opcional" id="productDescription"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="mb-4">
+            <!-- FORMA DE PAGO CON MODAL -->
+                      <div class="container">
+                        <!-- Button trigger modal -->
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                              <h4 class="mb-3">Forma de pago</h4>
+                              <label id="no" style="display:block;">No se ha seleccionado</label>
+                              <label id="transf" style="display:none;">Transferencia bancaria.</label>
+                              <label id="tarj" style="display:none;">Tarjeta de crédito.</label>
+                              <button type="button" class="m-1 btn btn-link" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Seleccionar</button>
+                            <div id="mostrar" class="invalid-feedback" style="display:none;">
+                              Selecciona una forma de pago
+                            </div>
+                        </div>
+                      <!-- Acá comienza el modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <b class="modal-title" id="exampleModalLabel">Forma de pago</b>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-body">
+          <div class="custom-control custom-radio">
+              <div class="custom-control custom-radio">
+                <input id="goldradio1" type="radio" name="formaDePago" class="custom-control-input" required="" onclick="validaciones()">
+                <label class="custom-control-label" for="goldradio">Tarjeta de crédito</label>
+                <hr class="mb-4">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="typeName">Número de tarjeta</label>
+                <input type="number" id="nrotarjeta" class="form-control" required="" min="0"/>
+                <div class="invalid-feedback">
+                  Debes ingresar número de tarjeta
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label  for="typeText">Código de seg.</label>
+                <input type="text" id="codigoseg" class="form-control" required="" min="0" size="5"/>    
+                <div class="invalid-feedback">
+                  Debes ingresar el código de seguridad
+                </div>            
+              </div>
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <div class="form-outline form-white">
+                    <label class="form-label" type="text" for="typeExp">Vencimiento</label>
+                    <input type="month" class="form-control" id="exp" required=""/> 
+                    <div class="invalid-feedback">
+                      Debes ingresar el vencimiento
+                    </div>                  
+                  </div>
+                </div>
+                <div class="col-md-6">
+                </div>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id="goldradio2" name="formaDePago" type="radio" class="custom-control-input" 
+                  required="" onclick="validaciones()">
+                <label class="custom-control-label" for="goldradio">Transferencia bancaria</label>
+                <hr class="mb-4">
+                <div class="col-md-6">
+                  <label for="typeName">Número de cuenta</label>
+                  <input type="number" id="nrocuenta" class="form-control" required="" min="0"/>
+                  <div class="invalid-feedback">
+                    Debes ingresar el número de cuenta
+                  </div>
+                </div>
+               
+            </form>    
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div> 
+      </div>
+    </div>
+  </div>
+</div>
+     </div>
+    </div>
+   </div>
+  </div>                   
+ </div>
+<div>
+               <!-- FIN DE HTML DE VENTANA MODAL -->  
+               <!-- BOTÓN DE FINALIZAR LA COMPRA --> 
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg" type="submit" onclick="validaciones()" id="buttonFinalizarCompra">Finalizar compra</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>    
+          <footer class="text-muted">
+            <div class="container">
+              <p class="float-end">
+                <a href="#">Volver arriba</a>
+              </p>
+              <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
+                2022</p>
+              <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+            </div>
+          </footer>
+        
+          <div class="alert alert-primary-dismissible fade" id="alertResult" role="alert">
+            <span id="resultSpan"></span>
+          </div>
+        
+          <div class="modal fade" tabindex="-1" role="dialog" id="contidionsModal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Condiciones de publicación</h5>
+                </div>
+                <div class="modal-body">
+                  <div class="container">
+                    <div class="row">
+                      <h5 class="text-warning">Gold (13%)</h5>
+                      <p class="muted text-justify">Tu producto se verá de forma promocionada en portada, además de las
+                        condiciones de Premium y Estándar.</p>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <h5 class="text-primary">Premium (7%)</h5>
+                      <p class="muted text-justify">Se mostrará el producto en los primeros lugares de resultados de búsqueda,
+                        así cómo cuando se ingrese a la categoría que pertenezca.</p>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <h5 class="text-secondary">Estándar (3%)</h5>
+                      <p class="muted text-justify">El producto se listará en la categoría correspondiente, así como en los
+                        resultados de búsquedas que coincidan con las palabras claves en el nombre.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
     </div>
   </main>
   <footer class="text-muted">
@@ -71,6 +324,8 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="sweetalert2.all.min.js"></script>
 </body>
 
 </html>

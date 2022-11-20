@@ -1,10 +1,10 @@
 const prodUrl = "https://japceibal.github.io/emercado-api/products/"
 let id= localStorage.getItem('id');
 const comentarios = "https://japceibal.github.io/emercado-api/products_comments/"
-
 let coments=[];
+const url_carrito = "https://japceibal.github.io/emercado-api/user_cart/25801.json"
 
-function mostrar(array){
+function mostrar(producto){
     let htmlAgregar = "";
 {
        
@@ -14,30 +14,31 @@ function mostrar(array){
             <div class="col-3">
                 </div>
                     <div class="mb-1">
-                        <h1>${array.name}</h1> 
+                        <h1>${producto.name}
+                        </h1>
                         <hr>
                         <b>Precio</b>
-                        <p>${array.cost}</p> 
+                        <p>${producto.cost}</p> 
                         <b>Descripción</b>
-                        <p>${array.description}</p> 
+                        <p>${producto.description}</p> 
                         <b>Categoría</b>
-                        <p>${array.category}</p> 
+                        <p>${producto.category}</p> 
                         <b>Cantidad vendida</b>
-                        <p>${array.soldCount}</p>
+                        <p>${producto.soldCount}</p>
                         <b>Imágenes ilustrativas</b><br>
                         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active" data-bs-interval="10000">
-                            <img src="${array.images[0]}" class="d-block w-100" alt="imagen1">
+                            <img src="${producto.images[0]}" class="d-block w-100" alt="imagen1">
                             </div>
                             <div class="carousel-item" data-bs-interval="2000">
-                            <img src="${array.images[1]}" class="d-block w-100" alt="imagen2">
+                            <img src="${producto.images[1]}" class="d-block w-100" alt="imagen2">
                             </div>
                             <div class="carousel-item">
-                            <img src="${array.images[2]}" class="d-block w-100" alt="imagen3">
+                            <img src="${producto.images[2]}" class="d-block w-100" alt="imagen3">
                             </div>
                             <div class="carousel-item">
-                            <img src="${array.images[3]}" class="d-block w-100" alt="imagen4">
+                            <img src="${producto.images[3]}" class="d-block w-100" alt="imagen4">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -95,7 +96,6 @@ let opinion = document.getElementById('opinión').value;
 let requerimiento ="";
 if(opinion!="" && stars!=""){
     coments.push({"product":id,"score":score,"description":opinion,"user":usuario,"dateTime":fecha()})
-   // localStorage.getItem("ComentarObj", JSON.stringify(agregarOpinion))
     document.getElementById('opinión').value="";
     document.getElementById('calificar').value="0";
     Showcomentarios(coments)
@@ -107,23 +107,21 @@ if(opinion!="" && stars!=""){
     document.getElementById('requerido').innerHTML=requerimiento;
 }
 
-let agregarOpinion= [];
-
-function mostrarRelacionados(arrayProdsRel){
-    let htmlProdRel="";
-    for (let prod of arrayProdsRel){
-    htmlProdRel+=
-    `<div class="col-md-4" onclick="setIDRel(${prod.id})">
+function mostrarRelacionados(arrayProdsRelacionados){
+    let htmlProdRelacionados="";
+    for (let productoRel of arrayProdsRelacionados){
+    htmlProdRelacionados+=
+    `<div class="col-md-4" onclick="setIDRel(${productoRel.id})">
     <a href="product-info.html">
           <div class="card mb-4 shadow-sm custom-card cursor-active">
-              <img class="bd-placeholder-img card-img-top" src="${prod.image}" + " alt="product image">
-              <h3 class="m-3">${prod.name}</h3>
+              <img class="bd-placeholder-img card-img-top" src="${productoRel.image}" + " alt="product image">
+              <h3 class="m-3">${productoRel.name}</h3>
               <div class="card-body">
               </div>
             </div>
           </div>`
 }
-document.getElementById("prodsRel").innerHTML = htmlProdRel;
+document.getElementById("prodsRel").innerHTML = htmlProdRelacionados;
 }
 
 function cerrarSesion(){
@@ -132,9 +130,9 @@ function cerrarSesion(){
 
 function setIDRel(id) {
     localStorage.setItem("id", id);
-}
+} 
 
-//ADDEVENTLISTENER Y JSON
+                         //ADDEVENTLISTENER Y JSON//
 document.addEventListener("DOMContentLoaded", function(_e){
 getJSONData(prodUrl + id + '.json').then(function(resultObj){
     if (resultObj.status === "ok")
@@ -154,6 +152,7 @@ getJSONData(comentarios + id + '.json').then(function(resultObj){
         console.log(urlComentarios);
     }
 });
+
 document.getElementById('calificar').addEventListener('change', function(){
     calificar(document.getElementById('calificar').value);
 })
@@ -167,4 +166,14 @@ let usuario= localStorage.getItem('usuario');
             if (usuario==undefined){
                    location.href="index.html"
             }
+if(localStorage.getItem("produCompra")==null){
+   localStorage.setItem("produCompra", '[]')
+}
+document.getElementById('comprar').addEventListener('click',()=>{
+   produCompra= JSON.parse(localStorage.getItem("produCompra"))
+   prodUnit['count'] = 1
+   produCompra.push({"id":prodUnit.id,"name":prodUnit.name,"unitCost":prodUnit.cost,"currency":prodUnit.currency,"count":prodUnit.count, "image":prodUnit.images[0]})
+   localStorage.setItem("produCompra", JSON.stringify(produCompra))
+   location.href="cart.html"
+})
 });

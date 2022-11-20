@@ -1,3 +1,4 @@
+
 function redireccionar (){
     location.href="portada.html"
 }
@@ -25,7 +26,7 @@ function login(){
         title: 'Has inciado sesión',
         confirmButtonText: '<a location.href="portada.html">¡Vamos a e-mercado!</a>',
         confirmButtonColor: '#0087F7',
-        timer: '2500',
+        timer: '2000',
         timerProgressBar: true,
         backdrop: true, //cuando aparece el cartel, el fondo queda con sombrita
       })
@@ -35,5 +36,6 @@ function login(){
 document.addEventListener('DOMContentLoaded' ,() =>{
     document.getElementById('ingresar').addEventListener('click' ,() =>{
     login();
+    
     });
 })
